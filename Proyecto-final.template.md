@@ -93,7 +93,7 @@ A --> C[Registro]
 
 ## 5. Casos de Uso
 
-[Debes definir al menos 10 casos de uso. Completa la siguiente tabla:].
+[Debes definir al menos 10 casos de uso. Completa la siguiente tabla:]..
 
 | ID    | Caso de Uso         | Descripción                               | Prioridad |
 | :---- | :------------------ | :---------------------------------------- | :-------- |
