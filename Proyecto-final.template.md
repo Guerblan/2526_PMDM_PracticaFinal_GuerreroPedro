@@ -8,7 +8,7 @@ Rellena este documento e incluyelo dentro de la carpeta `/docs` del repositorio.
 - **Nombre y Apellidos: alumno-1**: [Pedro ]
 - **Nombre y Apellidos: alumno-2**: [Guerrero Blanco]
 - **Nombre del Proyecto**: [PideYa]
-- **URL del Repositorio (Privado)**: [URL del repo en Github]
+- **URL del Repositorio (Privado)**: [https://github.com/Guerblan/2526_PMDM_PracticaFinal_GuerreroPedro]
 
 ## 2. Descripción del Proyecto
 
