@@ -1,26 +1,51 @@
 package com.pedro.pideyaapp.data.local
 
 import android.content.Context
-import android.content.SharedPreferences
 
 class UserPreferences(context: Context) {
 
-    private val prefs: SharedPreferences =
+    private val prefs =
         context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
 
-    fun saveUser(email: String) {
-        prefs.edit().putString("user_email", email).apply()
+    companion object {
+        private const val KEY_EMAIL = "email"
+        private const val KEY_PASSWORD = "password"
+        private const val KEY_LOGGED = "logged"
     }
 
-    fun getUser(): String? {
-        return prefs.getString("user_email", null)
+    // ✅ Guardar usuario registrado
+    fun saveUser(email: String, password: String) {
+        prefs.edit()
+            .putString(KEY_EMAIL, email)
+            .putString(KEY_PASSWORD, password)
+            .apply()
     }
 
-    fun logout() {
-        prefs.edit().clear().apply()
+    // ✅ Comprobar login
+    fun isRegistered(email: String, password: String): Boolean {
+        val savedEmail = prefs.getString(KEY_EMAIL, null)
+        val savedPassword = prefs.getString(KEY_PASSWORD, null)
+
+        return email == savedEmail && password == savedPassword
     }
 
+    // ✅ Guardar sesión
+    fun setLogged(value: Boolean) {
+        prefs.edit().putBoolean(KEY_LOGGED, value).apply()
+    }
+
+    // ✅ Saber si hay sesión
     fun isLogged(): Boolean {
-        return getUser() != null
+        return prefs.getBoolean(KEY_LOGGED, false)
+    }
+
+    // ✅ OBTENER EMAIL DEL USUARIO
+    fun getUser(): String {
+        return prefs.getString(KEY_EMAIL, "Usuario") ?: "Usuario"
+    }
+
+    // ✅ Logout
+    fun logout() {
+        prefs.edit().putBoolean(KEY_LOGGED, false).apply()
     }
 }

@@ -1,5 +1,4 @@
-package com.pedro.pideyaapp.ui.home
-
+package com.pedro.pideyaapp.ui.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*

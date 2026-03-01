@@ -3,7 +3,8 @@ package com.pedro.pideyaapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.pedro.pideyaapp.ui.AppNavigation
+import com.pedro.pideyaapp.ui.navigation.AppNavigation
+import com.pedro.pideyaapp.ui.theme.PideYaAppTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -11,7 +12,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            AppNavigation()
+            PideYaAppTheme {
+                AppNavigation()
+            }
         }
     }
 }
