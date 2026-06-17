@@ -1,0 +1,17 @@
+package com.pedro.pideyaapp.data.datasource
+
+import com.pedro.pideyaapp.data.local.UserPreferences
+
+class UserPreferencesDataSource(
+    private val preferences: UserPreferences
+) {
+    fun saveUser(email: String) = preferences.saveUser(email)
+    fun setLogged(value: Boolean) = preferences.setLogged(value)
+    fun isLogged(): Boolean = preferences.isLogged()
+    fun getUser(): String? = preferences.getUser()
+    fun saveSelectedCategory(categoryId: String) = preferences.saveSelectedCategory(categoryId)
+    fun getSelectedCategory(): String = preferences.getSelectedCategory()
+    fun saveLanguage(languageTag: String) = preferences.saveLanguage(languageTag)
+    fun getLanguage(): String = preferences.getLanguage()
+    fun logout() = preferences.logout()
+}

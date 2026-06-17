@@ -1,0 +1,57 @@
+package com.pedro.pideyaapp.data.local
+
+import android.content.Context
+
+class UserPreferences(context: Context) {
+
+    private val prefs =
+        context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+
+    companion object {
+        private const val KEY_EMAIL = "email"
+        private const val KEY_LOGGED = "logged"
+        private const val KEY_SELECTED_CATEGORY = "selected_category"
+        private const val KEY_LANGUAGE = "language"
+    }
+
+    fun saveUser(email: String) {
+        prefs.edit()
+            .putString(KEY_EMAIL, email)
+            .apply()
+    }
+
+    fun setLogged(value: Boolean) {
+        prefs.edit().putBoolean(KEY_LOGGED, value).apply()
+    }
+
+    fun isLogged(): Boolean {
+        return prefs.getBoolean(KEY_LOGGED, false)
+    }
+
+    fun getUser(): String? {
+        return prefs.getString(KEY_EMAIL, null)
+    }
+
+    fun saveSelectedCategory(categoryId: String) {
+        prefs.edit().putString(KEY_SELECTED_CATEGORY, categoryId).apply()
+    }
+
+    fun getSelectedCategory(): String {
+        return prefs.getString(KEY_SELECTED_CATEGORY, "all") ?: "all"
+    }
+
+    fun saveLanguage(languageTag: String) {
+        prefs.edit().putString(KEY_LANGUAGE, languageTag).apply()
+    }
+
+    fun getLanguage(): String {
+        return prefs.getString(KEY_LANGUAGE, "es") ?: "es"
+    }
+
+    fun logout() {
+        prefs.edit()
+            .putBoolean(KEY_LOGGED, false)
+            .remove(KEY_EMAIL)
+            .apply()
+    }
+}
