@@ -13,8 +13,6 @@ class UserPreferencesDataSource(
     fun setLogged(value: Boolean) = preferences.setLogged(value)
     fun isLogged(): Boolean = preferences.isLogged()
     fun getUser(): String? = preferences.getUser()
-    fun saveSelectedCategory(categoryId: String) = preferences.saveSelectedCategory(categoryId)
-    fun getSelectedCategory(): String = preferences.getSelectedCategory()
     fun saveLanguage(languageTag: String) = preferences.saveLanguage(languageTag)
     fun getLanguage(): String = preferences.getLanguage()
     fun logout() = preferences.logout()

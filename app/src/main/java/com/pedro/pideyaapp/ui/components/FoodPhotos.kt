@@ -28,12 +28,12 @@ fun ProductPhoto(
 }
 
 @Composable
-fun RestaurantPhoto(
-    restaurantId: String,
+fun EstablishmentPhoto(
+    establishmentId: String,
     modifier: Modifier = Modifier
 ) {
     ImageCard(
-        imageRes = imageForRestaurant(restaurantId),
+        imageRes = imageForEstablishment(establishmentId),
         modifier = modifier
     )
 }
@@ -62,28 +62,28 @@ private fun ImageCard(
 @DrawableRes
 fun imageForProduct(productId: String): Int {
     return when (productId) {
-        "prod_1", "prod_2", "prod_3" -> R.drawable.menu_1_burger
-        "prod_4", "prod_5", "prod_6" -> R.drawable.menu_2_fries
-        "prod_7", "prod_8", "prod_9" -> R.drawable.menu_3_carbonara
-        "prod_10", "prod_11", "prod_12" -> R.drawable.menu_1_burger
-        "prod_13", "prod_14", "prod_15" -> R.drawable.menu_4_margherita
-        "prod_16", "prod_17", "prod_18" -> R.drawable.menu_8_smoothie
-        "prod_19", "prod_20", "prod_21" -> R.drawable.menu_2_fries
-        "prod_22", "prod_23", "prod_24" -> R.drawable.menu_8_smoothie
-        "prod_25", "prod_26", "prod_27" -> R.drawable.menu_8_smoothie
-        else -> R.drawable.menu_1_burger
+        "prod_1", "prod_2", "prod_3" -> R.drawable.pideya_food_classics
+        "prod_4", "prod_5", "prod_6" -> R.drawable.pideya_food_bites
+        "prod_7", "prod_8", "prod_9" -> R.drawable.pideya_food_tasting
+        "prod_10", "prod_11", "prod_12" -> R.drawable.pideya_food_classics
+        "prod_13", "prod_14", "prod_15" -> R.drawable.pideya_food_pizza
+        "prod_16", "prod_17", "prod_18" -> R.drawable.pideya_food_drinks
+        "prod_19", "prod_20", "prod_21" -> R.drawable.pideya_food_bites
+        "prod_22", "prod_23", "prod_24" -> R.drawable.pideya_food_drinks
+        "prod_25", "prod_26", "prod_27" -> R.drawable.pideya_food_drinks
+        else -> R.drawable.pideya_food_classics
     }
 }
 
 @DrawableRes
-fun imageForRestaurant(restaurantId: String): Int {
-    return when (restaurantId) {
-        "est_1", "est_8" -> R.drawable.menu_8_smoothie
-        "est_2", "est_7" -> R.drawable.menu_2_fries
-        "est_3", "est_9" -> R.drawable.menu_3_carbonara
-        "est_4" -> R.drawable.menu_1_burger
-        "est_5" -> R.drawable.menu_4_margherita
-        "est_6" -> R.drawable.menu_8_smoothie
-        else -> R.drawable.menu_1_burger
+fun imageForEstablishment(establishmentId: String): Int {
+    return when (establishmentId) {
+        "est_1", "est_8" -> R.drawable.pideya_food_drinks
+        "est_2", "est_7" -> R.drawable.pideya_food_bites
+        "est_3", "est_9" -> R.drawable.pideya_food_tasting
+        "est_4" -> R.drawable.pideya_food_classics
+        "est_5" -> R.drawable.pideya_food_pizza
+        "est_6" -> R.drawable.pideya_food_drinks
+        else -> R.drawable.pideya_food_classics
     }
 }

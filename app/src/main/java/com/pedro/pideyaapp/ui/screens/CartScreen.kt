@@ -107,7 +107,7 @@ fun CartScreen(
                             }
                             Box(modifier = Modifier.size(104.dp)) {
                                 ProductPhoto(
-                                    productId = cartState.items.firstOrNull()?.productId ?: "menu_1",
+                                    productId = cartState.items.firstOrNull()?.productId ?: "prod_1",
                                     modifier = Modifier.fillMaxSize()
                                 )
                             }

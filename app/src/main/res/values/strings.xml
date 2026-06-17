@@ -34,7 +34,7 @@
     <string name="cart_item_quantity">Cantidad: %1$d</string>
     <string name="cart_total">Total: %1$.2f &#8364;</string>
     <string name="orders_title">Pedidos</string>
-    <string name="back_to_restaurants">Volver a eventos</string>
+    <string name="back_to_events">Volver a eventos</string>
     <string name="current_order_title">Pedido actual</string>
     <string name="order_status_label">Estado: %1$s</string>
     <string name="pay_order_action">Marcar como pagado</string>
@@ -42,14 +42,13 @@
     <string name="order_history_title">Historial de pedidos</string>
     <string name="order_status_pending_payment">Pendiente de pago</string>
     <string name="order_status_paid">Pagado - en preparaci&#243;n</string>
-    <string name="error_single_restaurant_cart">Solo puedes a&#241;adir productos de un establecimiento por pedido.</string>
+    <string name="error_single_establishment_cart">Solo puedes a&#241;adir productos de un establecimiento por pedido.</string>
     <string name="error_empty_cart">El carrito est&#225; vac&#237;o.</string>
     <string name="error_order_not_found">No se ha encontrado el pedido.</string>
     <string name="accept_action">Aceptar</string>
     <string name="cancel_action">Cancelar</string>
     <string name="logout_confirmation">&#191;Seguro que quieres cerrar sesi&#243;n?</string>
     <string name="remove_product_confirmation">&#191;Seguro que quieres eliminar este producto del carrito?</string>
-    <string name="menu_screen_subtitle">Productos disponibles</string>
     <string name="language_selector">Selector de idioma</string>
     <string name="language_spanish">Espa&#241;ol</string>
     <string name="language_english">Ingl&#233;s</string>

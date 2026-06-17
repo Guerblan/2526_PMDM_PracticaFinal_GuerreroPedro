@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CartDao {
 
-    @Query("SELECT * FROM cart_items ORDER BY restaurantName, productName")
+    @Query("SELECT * FROM cart_items ORDER BY establishmentName, productName")
     fun observeCart(): Flow<List<CartItemEntity>>
 
-    @Query("SELECT * FROM cart_items ORDER BY restaurantName, productName")
+    @Query("SELECT * FROM cart_items ORDER BY establishmentName, productName")
     suspend fun getCartSnapshot(): List<CartItemEntity>
 
     @Query("SELECT * FROM cart_items WHERE productId = :productId LIMIT 1")

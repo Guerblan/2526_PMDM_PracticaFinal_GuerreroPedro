@@ -12,7 +12,6 @@ class UserPreferences(context: Context) {
         private const val KEY_REGISTERED_EMAIL = "registered_email"
         private const val KEY_REGISTERED_PASSWORD = "registered_password"
         private const val KEY_LOGGED = "logged"
-        private const val KEY_SELECTED_CATEGORY = "selected_category"
         private const val KEY_LANGUAGE = "language"
     }
 
@@ -47,14 +46,6 @@ class UserPreferences(context: Context) {
 
     fun getRegisteredPassword(): String? {
         return prefs.getString(KEY_REGISTERED_PASSWORD, null)
-    }
-
-    fun saveSelectedCategory(categoryId: String) {
-        prefs.edit().putString(KEY_SELECTED_CATEGORY, categoryId).apply()
-    }
-
-    fun getSelectedCategory(): String {
-        return prefs.getString(KEY_SELECTED_CATEGORY, "all") ?: "all"
     }
 
     fun saveLanguage(languageTag: String) {

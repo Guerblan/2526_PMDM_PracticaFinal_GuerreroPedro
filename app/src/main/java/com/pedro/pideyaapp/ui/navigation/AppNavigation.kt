@@ -80,7 +80,7 @@ fun AppNavigation() {
                         popUpTo(Routes.Splash) { inclusive = true }
                     }
                 },
-                onNavigateToRestaurants = {
+                onNavigateToEvents = {
                     navController.navigate(Routes.Events) {
                         popUpTo(Routes.Splash) { inclusive = true }
                     }
@@ -198,7 +198,7 @@ fun AppNavigation() {
                 viewModel = viewModel,
                 selectedLanguage = selectedLanguage,
                 onLanguageSelected = updateLanguage,
-                onBackToRestaurants = {
+                onBackToEvents = {
                     navController.navigate(Routes.Events) {
                         popUpTo(Routes.Events) { inclusive = true }
                     }

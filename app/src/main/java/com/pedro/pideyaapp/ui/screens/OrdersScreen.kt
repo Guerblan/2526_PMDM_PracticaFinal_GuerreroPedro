@@ -48,7 +48,7 @@ fun OrdersScreen(
     viewModel: PideYaViewModel,
     selectedLanguage: String,
     onLanguageSelected: (String) -> Unit,
-    onBackToRestaurants: () -> Unit
+    onBackToEvents: () -> Unit
 ) {
     val ordersState by viewModel.ordersUiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -69,10 +69,10 @@ fun OrdersScreen(
                 TopAppBar(
                     title = { BrandTopBarTitle() },
                     navigationIcon = {
-                        IconButton(onClick = onBackToRestaurants) {
+                        IconButton(onClick = onBackToEvents) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(R.string.back_to_restaurants)
+                                contentDescription = stringResource(R.string.back_to_events)
                             )
                         }
                     }
@@ -100,7 +100,7 @@ fun OrdersScreen(
                                     style = MaterialTheme.typography.titleLarge
                                 )
                                 Spacer(modifier = Modifier.height(6.dp))
-                                Text(text = currentOrder.restaurantName)
+                                Text(text = currentOrder.establishmentName)
                                 Spacer(modifier = Modifier.height(6.dp))
                                 Text(
                                     text = currentOrder.itemsSummary,
@@ -154,7 +154,7 @@ fun OrdersScreen(
                             horizontalArrangement = Arrangement.spacedBy(14.dp)
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
-                                Text(text = order.restaurantName, style = MaterialTheme.typography.titleMedium)
+                                Text(text = order.establishmentName, style = MaterialTheme.typography.titleMedium)
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = order.itemsSummary,

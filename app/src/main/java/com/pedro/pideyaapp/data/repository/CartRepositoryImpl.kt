@@ -16,11 +16,11 @@ class CartRepositoryImpl(
 
     override suspend fun addProduct(product: MenuProduct): Result<Unit> {
         val currentCart = cartDataSource.getCartSnapshot()
-        val currentRestaurantId = currentCart.firstOrNull()?.restaurantId
+        val currentEstablishmentId = currentCart.firstOrNull()?.establishmentId
 
-        if (currentRestaurantId != null && currentRestaurantId != product.establishmentId) {
+        if (currentEstablishmentId != null && currentEstablishmentId != product.establishmentId) {
             return Result.failure(
-                IllegalStateException(stringsProvider.get(R.string.error_single_restaurant_cart))
+                IllegalStateException(stringsProvider.get(R.string.error_single_establishment_cart))
             )
         }
 
@@ -29,8 +29,8 @@ class CartRepositoryImpl(
             cartDataSource.insertItem(
                 CartItemEntity(
                     productId = product.id,
-                    restaurantId = product.establishmentId,
-                    restaurantName = product.establishmentName,
+                    establishmentId = product.establishmentId,
+                    establishmentName = product.establishmentName,
                     productName = product.name,
                     unitPrice = product.price,
                     quantity = 1

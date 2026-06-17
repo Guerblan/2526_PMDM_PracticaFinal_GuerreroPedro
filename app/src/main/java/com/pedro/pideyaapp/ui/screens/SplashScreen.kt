@@ -29,11 +29,11 @@ import kotlinx.coroutines.delay
 fun SplashScreen(
     isLogged: Boolean,
     onNavigateToLogin: () -> Unit,
-    onNavigateToRestaurants: () -> Unit
+    onNavigateToEvents: () -> Unit
 ) {
     LaunchedEffect(isLogged) {
         delay(900)
-        if (isLogged) onNavigateToRestaurants() else onNavigateToLogin()
+        if (isLogged) onNavigateToEvents() else onNavigateToLogin()
     }
 
     ScreenBackdrop {

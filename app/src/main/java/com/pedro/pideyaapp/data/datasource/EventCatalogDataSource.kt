@@ -12,7 +12,7 @@ data class EventDataModel(
     val establishmentCount: Int
 )
 
-data class RestaurantDataModel(
+data class EstablishmentDataModel(
     val id: String,
     val eventId: String,
     val name: String,
@@ -29,7 +29,7 @@ data class MenuProductDataModel(
     val price: Double
 )
 
-class RestaurantCatalogDataSource(
+class EventCatalogDataSource(
     private val context: Context
 ) {
 
@@ -57,7 +57,7 @@ class RestaurantCatalogDataSource(
         )
     )
 
-    fun establishmentsByEvent(eventId: String): List<RestaurantDataModel> = when (eventId) {
+    fun establishmentsByEvent(eventId: String): List<EstablishmentDataModel> = when (eventId) {
         "event_emerita" -> listOf(
             establishment("est_1", eventId, R.string.est_1_name, R.string.est_1_desc, R.string.est_1_type),
             establishment("est_2", eventId, R.string.est_2_name, R.string.est_2_desc, R.string.est_2_type),
@@ -75,7 +75,7 @@ class RestaurantCatalogDataSource(
         )
     }
 
-    fun restaurants(): List<RestaurantDataModel> = events().flatMap { event ->
+    fun establishments(): List<EstablishmentDataModel> = events().flatMap { event ->
         establishmentsByEvent(event.id)
     }
 
@@ -127,17 +127,14 @@ class RestaurantCatalogDataSource(
         )
     }
 
-    fun menuByRestaurant(restaurantId: String): List<MenuProductDataModel> =
-        productsByEstablishment(restaurantId)
-
     private fun establishment(
         id: String,
         eventId: String,
         nameRes: Int,
         descRes: Int,
         typeRes: Int
-    ): RestaurantDataModel {
-        return RestaurantDataModel(
+    ): EstablishmentDataModel {
+        return EstablishmentDataModel(
             id = id,
             eventId = eventId,
             name = context.localizedString(nameRes),

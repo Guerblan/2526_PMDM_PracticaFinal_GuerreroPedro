@@ -3,15 +3,15 @@ package com.pedro.pideyaapp.data
 import android.content.Context
 import com.pedro.pideyaapp.data.datasource.AuthRemoteDataSource
 import com.pedro.pideyaapp.data.datasource.CartLocalDataSource
+import com.pedro.pideyaapp.data.datasource.EventCatalogDataSource
 import com.pedro.pideyaapp.data.datasource.OrderLocalDataSource
-import com.pedro.pideyaapp.data.datasource.RestaurantCatalogDataSource
 import com.pedro.pideyaapp.data.datasource.UserPreferencesDataSource
 import com.pedro.pideyaapp.data.local.AppDatabase
 import com.pedro.pideyaapp.data.local.UserPreferences
 import com.pedro.pideyaapp.data.repository.AuthRepositoryImpl
 import com.pedro.pideyaapp.data.repository.CartRepositoryImpl
+import com.pedro.pideyaapp.data.repository.EventCatalogRepositoryImpl
 import com.pedro.pideyaapp.data.repository.OrderRepositoryImpl
-import com.pedro.pideyaapp.data.repository.RestaurantRepositoryImpl
 import com.pedro.pideyaapp.data.repository.StringsProvider
 import com.pedro.pideyaapp.domain.usecase.AnadirProductoCarritoUseCase
 import com.pedro.pideyaapp.domain.usecase.ConfirmarPedidoUseCase
@@ -38,8 +38,8 @@ class AppContainer(context: Context) {
         remoteDataSource = authRemoteDataSource,
         preferencesDataSource = userPreferencesSource
     )
-    private val restaurantRepository = RestaurantRepositoryImpl(
-        catalog = RestaurantCatalogDataSource(appContext)
+    private val eventCatalogRepository = EventCatalogRepositoryImpl(
+        catalog = EventCatalogDataSource(appContext)
     )
     private val cartRepository = CartRepositoryImpl(
         cartDataSource = cartLocalDataSource,
@@ -54,9 +54,9 @@ class AppContainer(context: Context) {
     val userPreferences = userPreferencesSource
     val loginUseCase = LoginUseCase(authRepository)
     val registroUseCase = RegistroUseCase(authRepository)
-    val obtenerEventosUseCase = ObtenerEventosUseCase(restaurantRepository)
-    val obtenerEstablecimientosPorEventoUseCase = ObtenerEstablecimientosPorEventoUseCase(restaurantRepository)
-    val obtenerProductosEstablecimientoUseCase = ObtenerProductosEstablecimientoUseCase(restaurantRepository)
+    val obtenerEventosUseCase = ObtenerEventosUseCase(eventCatalogRepository)
+    val obtenerEstablecimientosPorEventoUseCase = ObtenerEstablecimientosPorEventoUseCase(eventCatalogRepository)
+    val obtenerProductosEstablecimientoUseCase = ObtenerProductosEstablecimientoUseCase(eventCatalogRepository)
     val anadirProductoCarritoUseCase = AnadirProductoCarritoUseCase(cartRepository)
     val eliminarProductoCarritoUseCase = EliminarProductoCarritoUseCase(cartRepository)
     val confirmarPedidoUseCase = ConfirmarPedidoUseCase(orderRepository)

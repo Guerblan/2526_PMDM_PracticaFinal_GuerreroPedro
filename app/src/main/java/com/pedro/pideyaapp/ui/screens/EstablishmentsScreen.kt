@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pedro.pideyaapp.R
-import com.pedro.pideyaapp.domain.model.Restaurant
+import com.pedro.pideyaapp.domain.model.Establishment
 import com.pedro.pideyaapp.ui.components.BottomLanguageFooter
 import com.pedro.pideyaapp.ui.components.BrandTopBarTitle
 import com.pedro.pideyaapp.ui.components.GlowPanel
@@ -121,7 +121,7 @@ fun EstablishmentsScreen(
 
 @Composable
 private fun EstablishmentCard(
-    establishment: Restaurant,
+    establishment: Establishment,
     onOpenEstablishment: (String, String) -> Unit
 ) {
     Card(

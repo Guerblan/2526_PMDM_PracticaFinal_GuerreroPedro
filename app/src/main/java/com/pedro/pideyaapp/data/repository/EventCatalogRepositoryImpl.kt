@@ -1,15 +1,15 @@
 package com.pedro.pideyaapp.data.repository
 
-import com.pedro.pideyaapp.data.datasource.RestaurantCatalogDataSource
-import com.pedro.pideyaapp.domain.model.Event
 import com.pedro.pideyaapp.data.mapper.toDomain
+import com.pedro.pideyaapp.data.datasource.EventCatalogDataSource
+import com.pedro.pideyaapp.domain.model.Establishment
+import com.pedro.pideyaapp.domain.model.Event
 import com.pedro.pideyaapp.domain.model.MenuProduct
-import com.pedro.pideyaapp.domain.model.Restaurant
-import com.pedro.pideyaapp.domain.repository.RestaurantRepository
+import com.pedro.pideyaapp.domain.repository.EventCatalogRepository
 
-class RestaurantRepositoryImpl(
-    private val catalog: RestaurantCatalogDataSource
-) : RestaurantRepository {
+class EventCatalogRepositoryImpl(
+    private val catalog: EventCatalogDataSource
+) : EventCatalogRepository {
 
     override suspend fun getEvents(): List<Event> {
         return catalog.events().map { event ->
@@ -23,7 +23,7 @@ class RestaurantRepositoryImpl(
         }
     }
 
-    override suspend fun getEstablishmentsByEvent(eventId: String): List<Restaurant> {
+    override suspend fun getEstablishmentsByEvent(eventId: String): List<Establishment> {
         return catalog.establishmentsByEvent(eventId).map { it.toDomain() }
     }
 

@@ -8,7 +8,7 @@ fun List<CartItemEntity>.toOrderEntity(
     createdAt: Long
 ): OrderEntity {
     return OrderEntity(
-        restaurantName = first().restaurantName,
+        establishmentName = first().establishmentName,
         itemsSummary = joinToString(separator = ", ") { "${it.productName} x${it.quantity}" },
         totalAmount = sumOf { it.unitPrice * it.quantity },
         status = status,

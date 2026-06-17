@@ -1,6 +1,6 @@
 package com.pedro.pideyaapp.domain.model
 
-data class Restaurant(
+data class Establishment(
     val id: String,
     val eventId: String,
     val name: String,

@@ -8,8 +8,8 @@ data class CartItemEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val productId: String,
-    val restaurantId: String,
-    val restaurantName: String,
+    val establishmentId: String,
+    val establishmentName: String,
     val productName: String,
     val unitPrice: Double,
     val quantity: Int
