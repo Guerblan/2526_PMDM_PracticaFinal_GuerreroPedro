@@ -1,57 +1,63 @@
-# LaJuani
+# PideYa
 
 ## Descripcion del proyecto
-LaJuani es una aplicacion Android desarrollada en Kotlin con Jetpack Compose para la gestion simulada de pedidos de comida a domicilio.
+PideYa es una aplicacion Android desarrollada en Kotlin con Jetpack Compose para gestionar pedidos en eventos con recogida en establecimiento.
 
-La aplicacion permite que el usuario se registre o inicie sesion, consulte un catalogo de restaurantes, vea los productos de cada menu, anada productos al carrito y gestione pedidos. Tambien incluye cambio de idioma entre espanol e ingles y persistencia local de datos.
+La aplicacion permite que el usuario inicie sesion o se registre, consulte eventos disponibles, vea los establecimientos de cada evento, seleccione productos, confirme pedidos y consulte su historial.
 
 ## Funcionalidades principales
 - Splash screen de inicio.
 - Login y registro de usuario.
 - Navegacion entre pantallas con Navigation Compose.
-- Listado de restaurantes por categorias.
-- Visualizacion del menu de cada restaurante.
-- Carrito de compra con control de productos.
-- Confirmacion, pago y seguimiento de pedidos.
+- Listado de eventos disponibles.
+- Visualizacion de establecimientos por evento.
+- Visualizacion de productos por establecimiento.
+- Carrito de compra y confirmacion de pedido.
 - Historial de pedidos.
-- Valoracion de restaurantes con estrellas.
+- Perfil basico de usuario.
 - Cambio de idioma entre espanol e ingles.
 
-## Documentacion tecnica
-### Tecnologias utilizadas
+## Tecnologias utilizadas
 - Kotlin
 - Jetpack Compose
 - Material 3
 - Navigation Compose
 - Room
-- Firebase Authentication
 - SharedPreferences
 
-### Arquitectura
-El proyecto sigue una arquitectura por capas inspirada en la propuesta de Google para Android:
-- Capa de presentacion: pantallas Compose, `MainActivity`, navegacion y `ViewModel`.
-- Capa de negocio: casos de uso que encapsulan la logica de la aplicacion.
-- Capa de datos: repositorios, fuentes de datos, mapeadores y persistencia local.
+## Estructura del proyecto
+- `app/`: codigo principal de la aplicacion Android.
+- `docs/`: documentacion tecnica del proyecto.
+- `gradle/`: configuracion del sistema de build.
 
-### Estructura general
-- `app/src/main/java/com/pedro/pideyaapp/ui`: interfaz, navegacion, componentes, estados y temas.
-- `app/src/main/java/com/pedro/pideyaapp/domain`: modelos, repositorios y casos de uso.
-- `app/src/main/java/com/pedro/pideyaapp/data`: implementaciones de repositorios, datasource, mappers y clases de acceso a datos.
-- `app/src/main/res`: recursos graficos, temas y cadenas en varios idiomas.
+## Instalacion y ejecucion
+Para abrir el proyecto:
 
-### Persistencia
-La aplicacion usa dos mecanismos principales de persistencia:
-- `SharedPreferences` para idioma, categoria seleccionada y datos basicos de sesion.
-- `Room` para carrito, pedidos y valoraciones de restaurantes.
+```bash
+Abrir la carpeta del proyecto en Android Studio
+```
 
-### Autenticacion
-La autenticacion se ha preparado con Firebase Authentication. Si Firebase no estuviera disponible o configurado, la aplicacion controla ese caso y muestra el mensaje correspondiente.
+Para compilar en modo debug:
 
-### Compilacion y ejecucion
-Para ejecutar el proyecto:
-1. Abrir el proyecto en Android Studio.
-2. Sincronizar Gradle.
-3. Ejecutar la configuracion `app` sobre un emulador o dispositivo Android.
+```bash
+./gradlew assembleDebug
+```
 
-## Autor
-Pedro Guerrero
+Para compilar en modo release:
+
+```bash
+./gradlew assembleRelease
+```
+
+APK generados:
+- `app/build/outputs/apk/debug/app-debug.apk`
+- `app/build/outputs/apk/release/app-release-unsigned.apk`
+
+## Arquitectura
+El proyecto mantiene una arquitectura por capas:
+- Presentacion: pantallas Compose, `MainActivity`, navegacion y `ViewModel`.
+- Dominio: modelos, repositorios y casos de uso.
+- Datos: datasources, repositorios, mappers y persistencia local.
+
+## Estado actual
+La aplicacion se ha orientado a una version minima de `PideYa`, con un flujo centrado en eventos, establecimientos y pedidos locales, sin depender de servicios externos para su funcionamiento basico. El proyecto compila correctamente en `debug` y `release`.

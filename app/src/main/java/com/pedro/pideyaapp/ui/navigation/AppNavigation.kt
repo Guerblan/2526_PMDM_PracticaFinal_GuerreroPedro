@@ -16,11 +16,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.pedro.pideyaapp.data.AppContainer
 import com.pedro.pideyaapp.ui.screens.CartScreen
+import com.pedro.pideyaapp.ui.screens.EventsScreen
+import com.pedro.pideyaapp.ui.screens.EstablishmentsScreen
 import com.pedro.pideyaapp.ui.screens.LoginScreen
-import com.pedro.pideyaapp.ui.screens.MenuScreen
 import com.pedro.pideyaapp.ui.screens.OrdersScreen
+import com.pedro.pideyaapp.ui.screens.ProductsScreen
+import com.pedro.pideyaapp.ui.screens.ProfileScreen
 import com.pedro.pideyaapp.ui.screens.RegisterScreen
-import com.pedro.pideyaapp.ui.screens.RestaurantsScreen
 import com.pedro.pideyaapp.ui.screens.SplashScreen
 import com.pedro.pideyaapp.ui.viewmodel.PideYaViewModel
 import com.pedro.pideyaapp.ui.viewmodel.PideYaViewModelFactory
@@ -29,13 +31,19 @@ object Routes {
     const val Splash = "splash"
     const val Login = "login"
     const val Register = "register"
-    const val Restaurants = "restaurants"
-    const val Menu = "menu/{restaurantId}/{restaurantName}"
+    const val Events = "events"
+    const val Establishments = "establishments/{eventId}/{eventName}"
+    const val Products = "products/{establishmentId}/{establishmentName}"
     const val Cart = "cart"
     const val Orders = "orders"
+    const val Profile = "profile"
 
-    fun menu(restaurantId: String, restaurantName: String): String {
-        return "menu/$restaurantId/${Uri.encode(restaurantName)}"
+    fun establishments(eventId: String, eventName: String): String {
+        return "establishments/$eventId/${Uri.encode(eventName)}"
+    }
+
+    fun products(establishmentId: String, establishmentName: String): String {
+        return "products/$establishmentId/${Uri.encode(establishmentName)}"
     }
 }
 
@@ -73,7 +81,7 @@ fun AppNavigation() {
                     }
                 },
                 onNavigateToRestaurants = {
-                    navController.navigate(Routes.Restaurants) {
+                    navController.navigate(Routes.Events) {
                         popUpTo(Routes.Splash) { inclusive = true }
                     }
                 }
@@ -87,7 +95,7 @@ fun AppNavigation() {
                 onLanguageSelected = updateLanguage,
                 onGoRegister = { navController.navigate(Routes.Register) },
                 onLoginSuccess = {
-                    navController.navigate(Routes.Restaurants) {
+                    navController.navigate(Routes.Events) {
                         popUpTo(Routes.Login) { inclusive = true }
                     }
                 }
@@ -107,42 +115,67 @@ fun AppNavigation() {
             )
         }
 
-        composable(Routes.Restaurants) {
-            RestaurantsScreen(
+        composable(Routes.Events) {
+            EventsScreen(
                 viewModel = viewModel,
                 selectedLanguage = selectedLanguage,
                 onLanguageSelected = updateLanguage,
-                onOpenMenu = { restaurantId, restaurantName ->
-                    navController.navigate(Routes.menu(restaurantId, restaurantName))
+                onOpenEvent = { eventId, eventName ->
+                    navController.navigate(Routes.establishments(eventId, eventName))
                 },
-                onOpenCart = { navController.navigate(Routes.Cart) },
                 onOpenOrders = { navController.navigate(Routes.Orders) },
+                onOpenProfile = { navController.navigate(Routes.Profile) },
                 onLogout = {
                     viewModel.logout()
                     navController.navigate(Routes.Login) {
-                        popUpTo(Routes.Restaurants) { inclusive = true }
+                        popUpTo(Routes.Events) { inclusive = true }
                     }
                 }
             )
         }
 
         composable(
-            route = Routes.Menu,
+            route = Routes.Establishments,
             arguments = listOf(
-                navArgument("restaurantId") { type = NavType.StringType },
-                navArgument("restaurantName") { type = NavType.StringType }
+                navArgument("eventId") { type = NavType.StringType },
+                navArgument("eventName") { type = NavType.StringType }
             )
         ) { backStackEntry ->
-            val restaurantId = backStackEntry.arguments?.getString("restaurantId").orEmpty()
-            val restaurantName = Uri.decode(
-                backStackEntry.arguments?.getString("restaurantName").orEmpty()
+            val eventId = backStackEntry.arguments?.getString("eventId").orEmpty()
+            val eventName = Uri.decode(
+                backStackEntry.arguments?.getString("eventName").orEmpty()
             )
-            MenuScreen(
+            EstablishmentsScreen(
                 viewModel = viewModel,
                 selectedLanguage = selectedLanguage,
                 onLanguageSelected = updateLanguage,
-                restaurantId = restaurantId,
-                restaurantName = restaurantName,
+                eventId = eventId,
+                eventName = eventName,
+                onBack = { navController.popBackStack() },
+                onOpenEstablishment = { establishmentId, establishmentName ->
+                    navController.navigate(Routes.products(establishmentId, establishmentName))
+                },
+                onOpenCart = { navController.navigate(Routes.Cart) }
+            )
+        }
+
+        composable(
+            route = Routes.Products,
+            arguments = listOf(
+                navArgument("establishmentId") { type = NavType.StringType },
+                navArgument("establishmentName") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val establishmentId = backStackEntry.arguments?.getString("establishmentId").orEmpty()
+            val establishmentName = Uri.decode(
+                backStackEntry.arguments?.getString("establishmentName").orEmpty()
+            )
+            ProductsScreen(
+                viewModel = viewModel,
+                selectedLanguage = selectedLanguage,
+                onLanguageSelected = updateLanguage,
+                establishmentId = establishmentId,
+                establishmentName = establishmentName,
                 onBack = { navController.popBackStack() },
                 onOpenCart = { navController.navigate(Routes.Cart) }
             )
@@ -166,8 +199,23 @@ fun AppNavigation() {
                 selectedLanguage = selectedLanguage,
                 onLanguageSelected = updateLanguage,
                 onBackToRestaurants = {
-                    navController.navigate(Routes.Restaurants) {
-                        popUpTo(Routes.Restaurants) { inclusive = true }
+                    navController.navigate(Routes.Events) {
+                        popUpTo(Routes.Events) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(Routes.Profile) {
+            ProfileScreen(
+                viewModel = viewModel,
+                selectedLanguage = selectedLanguage,
+                onLanguageSelected = updateLanguage,
+                onBack = { navController.popBackStack() },
+                onLogout = {
+                    viewModel.logout()
+                    navController.navigate(Routes.Login) {
+                        popUpTo(Routes.Events) { inclusive = true }
                     }
                 }
             )

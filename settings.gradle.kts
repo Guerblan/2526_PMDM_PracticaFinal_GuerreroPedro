@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LaJuani"
+rootProject.name = "PideYa"
 include(":app")

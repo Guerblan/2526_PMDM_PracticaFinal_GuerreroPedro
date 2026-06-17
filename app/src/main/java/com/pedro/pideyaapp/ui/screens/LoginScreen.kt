@@ -2,6 +2,7 @@ package com.pedro.pideyaapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,10 +28,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.pedro.pideyaapp.R
+import com.pedro.pideyaapp.ui.components.BrandPill
 import com.pedro.pideyaapp.ui.components.BrandHeader
 import com.pedro.pideyaapp.ui.components.BottomLanguageFooter
 import com.pedro.pideyaapp.ui.components.GlowPanel
@@ -66,7 +70,7 @@ fun LoginScreen(
             containerColor = androidx.compose.ui.graphics.Color.Transparent,
             topBar = {
                 TopAppBar(
-                    title = { Text(stringResource(R.string.login_title)) }
+                    title = { Text(stringResource(R.string.app_name)) }
                 )
             },
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
@@ -77,19 +81,25 @@ fun LoginScreen(
                     .padding(padding)
                     .padding(horizontal = 20.dp, vertical = 14.dp)
                     .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Top
             ) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    BrandPill(text = stringResource(R.string.brand_tag_live))
+                    BrandPill(text = stringResource(R.string.brand_tag_local))
+                }
+                Spacer(modifier = Modifier.height(18.dp))
                 BrandHeader()
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(14.dp))
                 GlowPanel(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.padding(22.dp)) {
                         Text(
-                            text = stringResource(R.string.app_name),
+                            text = stringResource(R.string.login_title),
                             style = MaterialTheme.typography.headlineMedium
                         )
                         Spacer(modifier = Modifier.height(6.dp))
                         Text(
-                            text = stringResource(R.string.splash_subtitle),
+                            text = stringResource(R.string.login_pitch),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -98,7 +108,14 @@ fun LoginScreen(
                             value = authState.email,
                             onValueChange = viewModel::onEmailChange,
                             label = { Text(stringResource(R.string.email_label)) },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.72f),
+                                unfocusedContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.56f),
+                                unfocusedIndicatorColor = Color.Transparent,
+                                focusedIndicatorColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.45f)
+                            )
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         TextField(
@@ -106,7 +123,14 @@ fun LoginScreen(
                             onValueChange = viewModel::onPasswordChange,
                             label = { Text(stringResource(R.string.password_label)) },
                             visualTransformation = PasswordVisualTransformation(),
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.72f),
+                                unfocusedContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.56f),
+                                unfocusedIndicatorColor = Color.Transparent,
+                                focusedIndicatorColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.45f)
+                            )
                         )
                         Spacer(modifier = Modifier.height(18.dp))
                         ElevatedButton(
@@ -129,7 +153,7 @@ fun LoginScreen(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.height(140.dp))
+                Spacer(modifier = Modifier.height(36.dp))
                 BottomLanguageFooter(
                     selectedLanguage = selectedLanguage,
                     onLanguageSelected = onLanguageSelected

@@ -14,17 +14,16 @@ import com.pedro.pideyaapp.data.repository.OrderRepositoryImpl
 import com.pedro.pideyaapp.data.repository.RestaurantRepositoryImpl
 import com.pedro.pideyaapp.data.repository.StringsProvider
 import com.pedro.pideyaapp.domain.usecase.AnadirProductoCarritoUseCase
-import com.pedro.pideyaapp.domain.usecase.CalificarConEstrellasRestauranteUseCase
 import com.pedro.pideyaapp.domain.usecase.ConfirmarPedidoUseCase
 import com.pedro.pideyaapp.domain.usecase.ConsultarEstadoPedidoUseCase
 import com.pedro.pideyaapp.domain.usecase.ConsultarHistorialPedidosUseCase
 import com.pedro.pideyaapp.domain.usecase.EliminarProductoCarritoUseCase
 import com.pedro.pideyaapp.domain.usecase.LoginUseCase
-import com.pedro.pideyaapp.domain.usecase.ObtenerListaRestaurantesUseCase
-import com.pedro.pideyaapp.domain.usecase.ObtenerRestaurantesPorCategoriaUseCase
+import com.pedro.pideyaapp.domain.usecase.ObtenerEstablecimientosPorEventoUseCase
+import com.pedro.pideyaapp.domain.usecase.ObtenerEventosUseCase
+import com.pedro.pideyaapp.domain.usecase.ObtenerProductosEstablecimientoUseCase
 import com.pedro.pideyaapp.domain.usecase.RealizarPagoPedidoUseCase
 import com.pedro.pideyaapp.domain.usecase.RegistroUseCase
-import com.pedro.pideyaapp.domain.usecase.VerMenuRestauranteUseCase
 
 class AppContainer(context: Context) {
 
@@ -37,12 +36,10 @@ class AppContainer(context: Context) {
     private val orderLocalDataSource = OrderLocalDataSource(database.orderDao())
     private val authRepository = AuthRepositoryImpl(
         remoteDataSource = authRemoteDataSource,
-        preferencesDataSource = userPreferencesSource,
-        stringsProvider = stringsProvider
+        preferencesDataSource = userPreferencesSource
     )
     private val restaurantRepository = RestaurantRepositoryImpl(
-        catalog = RestaurantCatalogDataSource(appContext),
-        ratingDao = database.restaurantRatingDao()
+        catalog = RestaurantCatalogDataSource(appContext)
     )
     private val cartRepository = CartRepositoryImpl(
         cartDataSource = cartLocalDataSource,
@@ -57,10 +54,9 @@ class AppContainer(context: Context) {
     val userPreferences = userPreferencesSource
     val loginUseCase = LoginUseCase(authRepository)
     val registroUseCase = RegistroUseCase(authRepository)
-    val obtenerListaRestaurantesUseCase = ObtenerListaRestaurantesUseCase(restaurantRepository)
-    val obtenerRestaurantesPorCategoriaUseCase = ObtenerRestaurantesPorCategoriaUseCase(restaurantRepository)
-    val calificarConEstrellasRestauranteUseCase = CalificarConEstrellasRestauranteUseCase(restaurantRepository)
-    val verMenuRestauranteUseCase = VerMenuRestauranteUseCase(restaurantRepository)
+    val obtenerEventosUseCase = ObtenerEventosUseCase(restaurantRepository)
+    val obtenerEstablecimientosPorEventoUseCase = ObtenerEstablecimientosPorEventoUseCase(restaurantRepository)
+    val obtenerProductosEstablecimientoUseCase = ObtenerProductosEstablecimientoUseCase(restaurantRepository)
     val anadirProductoCarritoUseCase = AnadirProductoCarritoUseCase(cartRepository)
     val eliminarProductoCarritoUseCase = EliminarProductoCarritoUseCase(cartRepository)
     val confirmarPedidoUseCase = ConfirmarPedidoUseCase(orderRepository)

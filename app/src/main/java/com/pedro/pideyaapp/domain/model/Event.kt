@@ -1,10 +1,9 @@
 package com.pedro.pideyaapp.domain.model
 
-data class MenuProduct(
+data class Event(
     val id: String,
-    val establishmentId: String,
-    val establishmentName: String,
     val name: String,
+    val city: String,
     val description: String,
-    val price: Double
+    val establishmentCount: Int
 )

@@ -8,7 +8,7 @@ import androidx.compose.material3.Surface
 import androidx.core.os.LocaleListCompat
 import com.pedro.pideyaapp.data.local.UserPreferences
 import com.pedro.pideyaapp.ui.navigation.AppNavigation
-import com.pedro.pideyaapp.ui.theme.LaJuaniTheme
+import com.pedro.pideyaapp.ui.theme.PideYaTheme
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContent {
-            LaJuaniTheme {
+            PideYaTheme {
                 Surface {
                     AppNavigation()
                 }

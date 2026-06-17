@@ -9,6 +9,8 @@ class UserPreferences(context: Context) {
 
     companion object {
         private const val KEY_EMAIL = "email"
+        private const val KEY_REGISTERED_EMAIL = "registered_email"
+        private const val KEY_REGISTERED_PASSWORD = "registered_password"
         private const val KEY_LOGGED = "logged"
         private const val KEY_SELECTED_CATEGORY = "selected_category"
         private const val KEY_LANGUAGE = "language"
@@ -30,6 +32,21 @@ class UserPreferences(context: Context) {
 
     fun getUser(): String? {
         return prefs.getString(KEY_EMAIL, null)
+    }
+
+    fun saveRegisteredUser(email: String, password: String) {
+        prefs.edit()
+            .putString(KEY_REGISTERED_EMAIL, email)
+            .putString(KEY_REGISTERED_PASSWORD, password)
+            .apply()
+    }
+
+    fun getRegisteredEmail(): String? {
+        return prefs.getString(KEY_REGISTERED_EMAIL, null)
+    }
+
+    fun getRegisteredPassword(): String? {
+        return prefs.getString(KEY_REGISTERED_PASSWORD, null)
     }
 
     fun saveSelectedCategory(categoryId: String) {

@@ -29,9 +29,7 @@ class PideYaViewModel(
     )
     val authUiState: StateFlow<AuthUiState> = _authUiState.asStateFlow()
 
-    private val _catalogUiState = MutableStateFlow(
-        CatalogUiState(selectedCategory = container.userPreferences.getSelectedCategory())
-    )
+    private val _catalogUiState = MutableStateFlow(CatalogUiState())
     val catalogUiState: StateFlow<CatalogUiState> = _catalogUiState.asStateFlow()
 
     private val _cartMessage = MutableStateFlow<String?>(null)
@@ -65,7 +63,7 @@ class PideYaViewModel(
 
     init {
         observeOrders()
-        refreshRestaurants()
+        loadEvents()
     }
 
     fun onEmailChange(email: String) {
@@ -135,17 +133,11 @@ class PideYaViewModel(
         _authUiState.value = AuthUiState()
     }
 
-    fun refreshRestaurants() {
+    fun loadEvents() {
         viewModelScope.launch {
-            val currentState = _catalogUiState.value
-            val restaurants = restaurantsForCategory(currentState.selectedCategory)
-            val selectedRestaurantName = currentState.selectedRestaurantId
-                ?.let { selectedId -> restaurants.firstOrNull { it.id == selectedId }?.name }
-                ?: currentState.selectedRestaurantName
-
-            _catalogUiState.value = currentState.copy(
-                restaurants = restaurants,
-                selectedRestaurantName = selectedRestaurantName
+            val events = container.obtenerEventosUseCase()
+            _catalogUiState.value = _catalogUiState.value.copy(
+                events = events
             )
         }
     }
@@ -153,55 +145,44 @@ class PideYaViewModel(
     fun onLanguageChanged() {
         viewModelScope.launch {
             val currentState = _catalogUiState.value
-            val restaurants = restaurantsForCategory(currentState.selectedCategory)
-            val selectedRestaurantId = currentState.selectedRestaurantId
-            val selectedRestaurantName = selectedRestaurantId
-                ?.let { selectedId -> restaurants.firstOrNull { it.id == selectedId }?.name }
-                ?: currentState.selectedRestaurantName
-            val menu = if (selectedRestaurantId != null) {
-                container.verMenuRestauranteUseCase(selectedRestaurantId)
-            } else {
-                currentState.menu
-            }
+            val events = container.obtenerEventosUseCase()
+            val establishments = currentState.selectedEventId?.let { eventId ->
+                container.obtenerEstablecimientosPorEventoUseCase(eventId)
+            } ?: currentState.establishments
+            val products = currentState.selectedEstablishmentId?.let { establishmentId ->
+                container.obtenerProductosEstablecimientoUseCase(establishmentId)
+            } ?: currentState.products
 
             _catalogUiState.value = currentState.copy(
-                restaurants = restaurants,
-                selectedRestaurantName = selectedRestaurantName,
-                menu = menu
+                events = events,
+                establishments = establishments,
+                products = products
             )
         }
     }
 
-    fun selectCategory(categoryId: String) {
-        container.userPreferences.saveSelectedCategory(categoryId)
-        _catalogUiState.value = _catalogUiState.value.copy(selectedCategory = categoryId)
-        refreshRestaurants()
-    }
-
-    fun loadMenu(restaurantId: String, restaurantName: String) {
+    fun loadEstablishments(eventId: String, eventName: String) {
         viewModelScope.launch {
-            val menu = container.verMenuRestauranteUseCase(restaurantId)
-            val resolvedRestaurantName = _catalogUiState.value.restaurants
-                .firstOrNull { it.id == restaurantId }
-                ?.name
-                ?: restaurantName
+            val establishments = container.obtenerEstablecimientosPorEventoUseCase(eventId)
             _catalogUiState.value = _catalogUiState.value.copy(
-                selectedRestaurantId = restaurantId,
-                selectedRestaurantName = resolvedRestaurantName,
-                menu = menu
+                selectedEventId = eventId,
+                selectedEventName = eventName,
+                establishments = establishments,
+                selectedEstablishmentId = null,
+                selectedEstablishmentName = "",
+                products = emptyList()
             )
         }
     }
 
-    fun rateRestaurant(restaurantId: String, stars: Int) {
+    fun loadProducts(establishmentId: String, establishmentName: String) {
         viewModelScope.launch {
-            container.calificarConEstrellasRestauranteUseCase(restaurantId, stars)
-            refreshRestaurants()
-            _catalogUiState.value.selectedRestaurantId?.let { selectedId ->
-                if (selectedId == restaurantId) {
-                    loadMenu(restaurantId, _catalogUiState.value.selectedRestaurantName)
-                }
-            }
+            val products = container.obtenerProductosEstablecimientoUseCase(establishmentId)
+            _catalogUiState.value = _catalogUiState.value.copy(
+                selectedEstablishmentId = establishmentId,
+                selectedEstablishmentName = establishmentName,
+                products = products
+            )
         }
     }
 
@@ -264,13 +245,6 @@ class PideYaViewModel(
             }
         }
     }
-
-    private suspend fun restaurantsForCategory(category: String) =
-        if (category == "all") {
-            container.obtenerListaRestaurantesUseCase()
-        } else {
-            container.obtenerRestaurantesPorCategoriaUseCase(category)
-        }
 
     private fun normalizeOrderStatus(status: String): String {
         val normalized = status.trim().lowercase()

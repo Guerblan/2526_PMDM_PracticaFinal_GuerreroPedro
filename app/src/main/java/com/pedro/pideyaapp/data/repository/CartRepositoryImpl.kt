@@ -18,7 +18,7 @@ class CartRepositoryImpl(
         val currentCart = cartDataSource.getCartSnapshot()
         val currentRestaurantId = currentCart.firstOrNull()?.restaurantId
 
-        if (currentRestaurantId != null && currentRestaurantId != product.restaurantId) {
+        if (currentRestaurantId != null && currentRestaurantId != product.establishmentId) {
             return Result.failure(
                 IllegalStateException(stringsProvider.get(R.string.error_single_restaurant_cart))
             )
@@ -29,8 +29,8 @@ class CartRepositoryImpl(
             cartDataSource.insertItem(
                 CartItemEntity(
                     productId = product.id,
-                    restaurantId = product.restaurantId,
-                    restaurantName = product.restaurantName,
+                    restaurantId = product.establishmentId,
+                    restaurantName = product.establishmentName,
                     productName = product.name,
                     unitPrice = product.price,
                     quantity = 1

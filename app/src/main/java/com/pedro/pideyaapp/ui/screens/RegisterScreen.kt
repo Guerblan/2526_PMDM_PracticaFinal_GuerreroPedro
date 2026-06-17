@@ -2,6 +2,7 @@ package com.pedro.pideyaapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.pedro.pideyaapp.R
+import com.pedro.pideyaapp.ui.components.BrandPill
 import com.pedro.pideyaapp.ui.components.BrandHeader
 import com.pedro.pideyaapp.ui.components.BottomLanguageFooter
 import com.pedro.pideyaapp.ui.components.GlowPanel
@@ -65,7 +67,7 @@ fun RegisterScreen(
             containerColor = androidx.compose.ui.graphics.Color.Transparent,
             topBar = {
                 TopAppBar(
-                    title = { Text(stringResource(R.string.register_title)) }
+                    title = { Text(stringResource(R.string.app_name)) }
                 )
             },
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
@@ -76,19 +78,25 @@ fun RegisterScreen(
                     .padding(padding)
                     .padding(horizontal = 20.dp, vertical = 14.dp)
                     .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Top
             ) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    BrandPill(text = stringResource(R.string.brand_tag_fast))
+                    BrandPill(text = stringResource(R.string.brand_tag_local))
+                }
+                Spacer(modifier = Modifier.height(18.dp))
                 BrandHeader()
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(14.dp))
                 GlowPanel(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.padding(22.dp)) {
                         Text(
-                            text = stringResource(R.string.app_name),
+                            text = stringResource(R.string.register_title),
                             style = MaterialTheme.typography.headlineMedium
                         )
                         Spacer(modifier = Modifier.height(6.dp))
                         Text(
-                            text = stringResource(R.string.register_title),
+                            text = stringResource(R.string.register_pitch),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -128,7 +136,7 @@ fun RegisterScreen(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.height(140.dp))
+                Spacer(modifier = Modifier.height(36.dp))
                 BottomLanguageFooter(
                     selectedLanguage = selectedLanguage,
                     onLanguageSelected = onLanguageSelected

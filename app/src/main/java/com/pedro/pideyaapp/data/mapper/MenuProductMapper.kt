@@ -6,8 +6,8 @@ import com.pedro.pideyaapp.domain.model.MenuProduct
 fun MenuProductDataModel.toDomain(): MenuProduct {
     return MenuProduct(
         id = id,
-        restaurantId = restaurantId,
-        restaurantName = restaurantName,
+        establishmentId = establishmentId,
+        establishmentName = establishmentName,
         name = name,
         description = description,
         price = price

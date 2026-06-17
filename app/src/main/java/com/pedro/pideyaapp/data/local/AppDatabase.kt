@@ -8,8 +8,7 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [
         CartItemEntity::class,
-        OrderEntity::class,
-        RestaurantRatingEntity::class
+        OrderEntity::class
     ],
     version = 2,
     exportSchema = false
@@ -18,7 +17,6 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun cartDao(): CartDao
     abstract fun orderDao(): OrderDao
-    abstract fun restaurantRatingDao(): RestaurantRatingDao
 
     companion object {
 

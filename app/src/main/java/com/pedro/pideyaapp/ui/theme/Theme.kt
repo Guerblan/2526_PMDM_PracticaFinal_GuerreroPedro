@@ -28,7 +28,7 @@ private val AppColors = darkColorScheme(
 )
 
 @Composable
-fun LaJuaniTheme(
+fun PideYaTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(

@@ -29,6 +29,8 @@ fun ScreenBackdrop(
     modifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit
 ) {
+    val lineStrong = MaterialTheme.colorScheme.outline.copy(alpha = 0.08f)
+    val lineSoft = MaterialTheme.colorScheme.outline.copy(alpha = 0.06f)
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -41,6 +43,20 @@ fun ScreenBackdrop(
                 )
             )
     ) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            drawLine(
+                color = lineStrong,
+                start = Offset(size.width * 0.08f, 0f),
+                end = Offset(size.width * 0.55f, size.height),
+                strokeWidth = 3f
+            )
+            drawLine(
+                color = lineSoft,
+                start = Offset(size.width * 0.62f, 0f),
+                end = Offset(size.width * 0.92f, size.height),
+                strokeWidth = 2f
+            )
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -66,6 +82,20 @@ fun ScreenBackdrop(
                         ),
                         center = Offset(900f, 260f),
                         radius = 560f
+                    )
+                )
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.radialGradient(
+                        colors = listOf(
+                            MaterialTheme.colorScheme.secondary.copy(alpha = 0.10f),
+                            Color.Transparent
+                        ),
+                        center = Offset(420f, 1200f),
+                        radius = 700f
                     )
                 )
         )

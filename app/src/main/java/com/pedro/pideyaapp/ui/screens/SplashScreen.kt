@@ -2,6 +2,7 @@ package com.pedro.pideyaapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.pedro.pideyaapp.R
+import com.pedro.pideyaapp.ui.components.BrandPill
 import com.pedro.pideyaapp.ui.components.BrandHero
 import com.pedro.pideyaapp.ui.components.GlowPanel
 import com.pedro.pideyaapp.ui.components.ScreenBackdrop
@@ -42,6 +44,11 @@ fun SplashScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                BrandPill(text = stringResource(R.string.brand_tag_live))
+                BrandPill(text = stringResource(R.string.brand_tag_fast))
+            }
+            Spacer(modifier = Modifier.height(18.dp))
             BrandHero()
             Spacer(modifier = Modifier.height(24.dp))
             GlowPanel(

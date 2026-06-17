@@ -1,7 +1,6 @@
 package com.pedro.pideyaapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -31,7 +29,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -40,7 +37,6 @@ import com.pedro.pideyaapp.domain.model.OrderStatus
 import com.pedro.pideyaapp.ui.components.BrandTopBarTitle
 import com.pedro.pideyaapp.ui.components.BottomLanguageFooter
 import com.pedro.pideyaapp.ui.components.GlowPanel
-import com.pedro.pideyaapp.ui.components.RestaurantPhoto
 import com.pedro.pideyaapp.ui.components.ScreenBackdrop
 import com.pedro.pideyaapp.ui.viewmodel.PideYaViewModel
 import java.text.DateFormat
@@ -94,42 +90,38 @@ fun OrdersScreen(
                 item {
                     ordersState.currentOrder?.let { currentOrder ->
                         GlowPanel(modifier = Modifier.fillMaxWidth()) {
-                            Row(
+                            Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(18.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                                verticalAlignment = Alignment.CenterVertically
+                                    .padding(18.dp)
                             ) {
-                                Box(modifier = Modifier.size(112.dp)) {
-                                    RestaurantPhoto(
-                                        restaurantId = restaurantIdForName(currentOrder.restaurantName),
-                                        modifier = Modifier.fillMaxSize()
-                                    )
-                                }
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(
-                                        text = stringResource(R.string.current_order_title),
-                                        style = MaterialTheme.typography.titleLarge
-                                    )
-                                    Spacer(modifier = Modifier.height(6.dp))
-                                    Text(text = currentOrder.restaurantName)
-                                    Text(
-                                        text = stringResource(
-                                            R.string.order_status_label,
-                                            localizedOrderStatus(currentOrder.status, pendingPaymentLabel, paidLabel)
-                                        ),
-                                        color = MaterialTheme.colorScheme.primary
-                                    )
-                                    Text(
-                                        text = stringResource(R.string.product_price, currentOrder.totalAmount),
-                                        color = MaterialTheme.colorScheme.tertiary
-                                    )
-                                    if (isPendingPayment(currentOrder.status)) {
-                                        Spacer(modifier = Modifier.height(10.dp))
-                                        Button(onClick = viewModel::payCurrentOrder) {
-                                            Text(stringResource(R.string.pay_order_action))
-                                        }
+                                Text(
+                                    text = stringResource(R.string.current_order_title),
+                                    style = MaterialTheme.typography.titleLarge
+                                )
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(text = currentOrder.restaurantName)
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(
+                                    text = currentOrder.itemsSummary,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(
+                                    text = stringResource(
+                                        R.string.order_status_label,
+                                        localizedOrderStatus(currentOrder.status, pendingPaymentLabel, paidLabel)
+                                    ),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    text = stringResource(R.string.product_price, currentOrder.totalAmount),
+                                    color = MaterialTheme.colorScheme.tertiary
+                                )
+                                if (isPendingPayment(currentOrder.status)) {
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Button(onClick = viewModel::payCurrentOrder) {
+                                        Text(stringResource(R.string.pay_order_action))
                                     }
                                 }
                             }
@@ -161,10 +153,6 @@ fun OrdersScreen(
                                 .padding(16.dp),
                             horizontalArrangement = Arrangement.spacedBy(14.dp)
                         ) {
-                            RestaurantPhoto(
-                                restaurantId = restaurantIdForName(order.restaurantName),
-                                modifier = Modifier.size(90.dp)
-                            )
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(text = order.restaurantName, style = MaterialTheme.typography.titleMedium)
                                 Spacer(modifier = Modifier.height(4.dp))
@@ -216,13 +204,3 @@ private fun localizedOrderStatus(
 }
 
 private fun isPendingPayment(status: String): Boolean = status == OrderStatus.PendingPayment
-
-private fun restaurantIdForName(name: String): String {
-    return when (name) {
-        "La Brasa Burgers" -> "rest_1"
-        "Forno di Roma" -> "rest_2"
-        "Sakura Express" -> "rest_3"
-        "Green Bowl" -> "rest_4"
-        else -> "rest_1"
-    }
-}
